@@ -8,7 +8,7 @@ export class TasksService {
   constructor(private prisma: PrismaService) {}
 
   create(createTaskDto: CreateTaskDto) {
-    return 'This action adds a new task';
+    return this.prisma.task.create({ data: createTaskDto });
   }
 
   findAll() {
@@ -16,14 +16,17 @@ export class TasksService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} task`;
+    return this.prisma.task.findUnique({ where: { id } });
   }
 
   update(id: number, updateTaskDto: UpdateTaskDto) {
-    return `This action updates a #${id} task`;
+    return this.prisma.task.update({
+      where: { id },
+      data: updateTaskDto,
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} task`;
+    return this.prisma.task.delete({ where: { id } });
   }
 }
