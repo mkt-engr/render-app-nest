@@ -7,7 +7,9 @@ import { UpdateTaskDto } from './dto/update-task.dto';
 export class TasksService {
   constructor(private prisma: PrismaService) {}
 
-  create(createTaskDto: CreateTaskDto) {
+  async create(createTaskDto: CreateTaskDto) {
+    const a = await this.findAll();
+    if (a.length >= 10) return;
     return this.prisma.task.create({ data: createTaskDto });
   }
 
